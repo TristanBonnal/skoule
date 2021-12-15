@@ -2,6 +2,7 @@
     <h2>Modifier un utilisateur</h2>
 
     <form action="" method="POST" class="mt-5">
+        <input type="hidden" name="token" value="<?= $token ?>">
         <div class="form-group">
             <label for="email">Adresse email</label>
             <input type="email" class="form-control" name="email" id="email" placeholder="" value="<?= $_POST['email'] ?? $user->getEmail() ?>">

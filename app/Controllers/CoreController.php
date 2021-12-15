@@ -12,11 +12,22 @@ abstract class CoreController
             'main-home' => ['admin', 'user'],
             'teachers-list' => ['admin', 'user'],
             'teachers-add' => ['admin'],
-            'teachers-add' => ['admin'],
+            'teachers-add-post' => ['admin'],
+            'teachers-edit' => ['admin'],
+            'teachers-edit-post' => ['admin'],
+            'teachers-delete' => ['admin'],
             'students-list' => ['admin', 'user'],
             'students-add' => ['admin', 'user'],
             'students-add-post' => ['admin', 'user'], 
-            'users-list' => ['admin'], 
+            'students-edit' => ['admin', 'user'],
+            'students-edit-post' => ['admin', 'user'], 
+            'students-delete' => ['admin', 'user'], 
+            'users-list' => ['admin'],
+            'users-add' => ['admin'],
+            'users-add-post' => ['admin'],
+            'users-edit' => ['admin'],
+            'users-edit-post' => ['admin'],
+            'users-delete' => ['admin'],
         ];
 
         if (array_key_exists($routeId, $accessControlList)) {
@@ -29,7 +40,15 @@ abstract class CoreController
     public static function checkCsrfToken($routeId)
     {
         $csrfTokenToCheckInPost = [
-            //TODO 
+            'teachers-edit-post',
+            'teachers-add-post',
+            'teachers-delete',
+            'students-add-post',
+            'students-edit-post', 
+            'students-delete',
+            'users-add-post', 
+            'users-edit-post', 
+            'users-delete'
         ];
 
 
@@ -46,9 +65,8 @@ abstract class CoreController
             if (empty($formToken) && empty($urlToken) || empty($sessionToken) || $formToken !== $sessionToken && $urlToken !== $sessionToken) {
                 // dump($formToken);
                 // dd($sessionToken);
-                //TODO 
-                // $errorController = new ErrorController();
-                // $errorController->err403();
+                $errorController = new ErrorController();
+                $errorController->err403();
             } else {
                 unset($_SESSION['token']);
             }

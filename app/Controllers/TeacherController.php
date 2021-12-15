@@ -13,8 +13,11 @@ class TeacherController extends CoreController
      */
     public function list()
     {
+        $token = bin2hex(random_bytes(32));
+        $_SESSION['token'] = $token;
 
         $this->show('teachers/list', [
+            'token' => $token,
             'teachers' => Teacher::findAll()
         ]);
     }
@@ -48,8 +51,10 @@ class TeacherController extends CoreController
         }
 
         if (!empty($errors)) {
+            $token = bin2hex(random_bytes(32));
+            $_SESSION['token'] = $token;
             $this->show('teachers/add', [
-                //TODO 'token' => $token,
+                'token' => $token,
                 'teachers' => Teacher::findAll(),
                 'errors' => $errors
             ]);
@@ -96,8 +101,11 @@ class TeacherController extends CoreController
         }
 
         if (!empty($errors)) {
+            $token = bin2hex(random_bytes(32));
+            $_SESSION['token'] = $token;
+
             $this->show('teachers/edit', [
-                //TODO 'token' => $token,
+                'token' => $token,
                 'teachers' => Teacher::findAll(),
                 'errors' => $errors
             ]);

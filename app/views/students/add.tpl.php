@@ -2,6 +2,8 @@
     <h2>Ajouter un étudiant</h2>
 
     <form action="" method="POST" class="mt-5">
+    <input type="hidden" name="token" value="<?= $token ?>">
+
         <div class="form-group">
             <label for="firstname">Prénom</label>
             <input type="text" class="form-control" name="firstname" id="firstname" placeholder="" value="<?= $_POST['firstname'] ?? '' ?>">
@@ -13,7 +15,7 @@
         <div class="form-group">
             <label for="teacher">Prof</label>
             <select name="teacher" id="teacher" class="form-control">
-                <option value="0">-</option>
+                <option disabled selected value="0">-</option>
                 <?php foreach ($teachers as $teacher): ?>
                     <option value="<?= $teacher->getId() ?>" <?= isset($_POST['teacher']) && $_POST['teacher'] == $teacher->getId() ? 'selected' : '' ?>>
                         <?= $teacher->getFirstname() ?> - <?= $teacher->getJob() ?>

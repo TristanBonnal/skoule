@@ -55,8 +55,11 @@ class StudentController extends CoreController
         }
 
         if (!empty($errors)) {
+            $token = bin2hex(random_bytes(32));
+            $_SESSION['token'] = $token;
+
             $this->show('students/add', [
-                //TODO 'token' => $token,
+                'token' => $token,
                 'teachers' => Teacher::findAll(),
                 'errors' => $errors
             ]);
@@ -108,8 +111,11 @@ class StudentController extends CoreController
         }
 
         if (!empty($errors)) {
+            $token = bin2hex(random_bytes(32));
+            $_SESSION['token'] = $token; 
+
             $this->show('students/edit', [
-                //TODO 'token' => $token,
+                'token' => $token,
                 'teachers' => Teacher::findAll(),
                 'errors' => $errors
             ]);

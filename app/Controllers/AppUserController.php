@@ -50,7 +50,10 @@ class AppUserController extends CoreController
 
     public function list() 
     {
+        $token = bin2hex(random_bytes(32));
+        $_SESSION['token'] = $token;
         $this->show('appusers/list', [
+            'token' =>$token,
             'users' => AppUser::findAll()
         ]);
     }
@@ -91,8 +94,10 @@ class AppUserController extends CoreController
         }
 
         if (!empty($errors)) {
+            $token = bin2hex(random_bytes(32));
+            $_SESSION['token'] = $token;
             $this->show('appusers/add', [
-                //TODO 'token' => $token,
+                'token' => $token,
                 'errors' => $errors
             ]);
         } else {
@@ -147,8 +152,10 @@ class AppUserController extends CoreController
         }
 
         if (!empty($errors)) {
+            $token = bin2hex(random_bytes(32));
+            $_SESSION['token'] = $token;
             $this->show('appusers/add', [
-                //TODO 'token' => $token,
+                'token' => $token,
                 'errors' => $errors
             ]);
         } else {

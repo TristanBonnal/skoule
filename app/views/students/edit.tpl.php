@@ -2,6 +2,8 @@
     <h2>Modifier un étudiant</h2>
 
     <form action="" method="POST" class="mt-5">
+    <input type="hidden" name="token" value="<?= $token ?>">
+
         <div class="form-group">
             <label for="firstname">Prénom</label>
             <input type="text" class="form-control" name="firstname" id="firstname" placeholder="" value="<?= $_POST['firstname'] ?? $student->getFirstName() ?>">
