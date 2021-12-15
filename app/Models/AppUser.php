@@ -57,72 +57,64 @@ class AppUser extends CoreModel
 
     public function insert()
     {
-        //TODO
-        // $pdo = Database::getPDO();
+        $pdo = Database::getPDO();
 
-        // $sql = "
-        //     INSERT INTO `app_user` (email, password, firstname, lastname, role, status)
-        //     VALUES (:email, :password, :firstname,:lastname, :role, :status)
-        // ";
-        // $pdoStatement = $pdo->prepare($sql);
+        $sql = "
+            INSERT INTO `app_user` (email, password, name, role, status)
+            VALUES (:email, :password, :name, :role, :status)
+        ";
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->bindValue('email', $this->email, PDO::PARAM_STR);
+        $pdoStatement->bindValue('name', $this->name, PDO::PARAM_STR);
+        $pdoStatement->bindValue('password', $this->password, PDO::PARAM_STR);
+        $pdoStatement->bindValue('role', $this->role, PDO::PARAM_STR);
+        $pdoStatement->bindValue('status', $this->status, PDO::PARAM_INT);
 
-        // $pdoStatement->execute([
-        //     'email' => $this->email,
-        //     'password' => $this->password,
-        //     'firstname' => $this->firstname,
-        //     'lastname' => $this->lastname,
-        //     'role' => $this->role,
-        //     'status' => $this->status
-        // ]);
+        $pdoStatement->execute();
 
-        // $insertedRows = $pdoStatement->rowCount();
+        $insertedRows = $pdoStatement->rowCount();
 
-        // if ($insertedRows > 0) {
-        //     $this->id = $pdo->lastInsertId();
+        if ($insertedRows > 0) {
+            $this->id = $pdo->lastInsertId();
 
-        //     return true;
-        // }
-        // return false;
+            return true;
+        }
+        return false;
     }
 
     public function update()
     {
-        //TODO
-        // $pdo = Database::getPDO();
+        $pdo = Database::getPDO();
 
-        // $sql = "
-        //     UPDATE `app_user` 
+        $sql = "
+            UPDATE `app_user` 
 
-        //     SET email = :email, 
-        //         password = :password, 
-        //         firstname = :firstname, 
-        //         lastname = :lastname,
-        //         role = :role,
-        //         status = :status,
-        //         updated_at = NOW()
+            SET email = :email, 
+                password = :password, 
+                name = :name, 
+                role = :role,
+                status = :status,
+                updated_at = NOW()
 
-        //     WHERE id = :id
-        // ";
+            WHERE id = :id
+        ";
         
-        // $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->bindValue('id', $this->id, PDO::PARAM_INT);
+        $pdoStatement->bindValue('email', $this->email, PDO::PARAM_STR);
+        $pdoStatement->bindValue('name', $this->name, PDO::PARAM_STR);
+        $pdoStatement->bindValue('password', $this->password, PDO::PARAM_STR);
+        $pdoStatement->bindValue('role', $this->role, PDO::PARAM_STR);
+        $pdoStatement->bindValue('status', $this->status, PDO::PARAM_INT);
+        $pdoStatement->execute();
 
-        // $pdoStatement->execute([
-        //     'id' => $this->id,
-        //     'email' => $this->email,
-        //     'password' => $this->password,
-        //     'firstname' => $this->firstname,
-        //     'lastname' => $this->lastname,
-        //     'role' => $this->role,
-        //     'status' => $this->status
-        // ]);
+        $updatedRows = $pdoStatement->rowCount();
 
-        // $updatedRows = $pdoStatement->rowCount();
-
-        // if ($updatedRows > 0) {
-        //     $this->id = $pdo->lastInsertId();
-        //     return true;
-        // }
-        // return false;
+        if ($updatedRows > 0) {
+            $this->id = $pdo->lastInsertId();
+            return true;
+        }
+        return false;
     }
 
     public function delete()

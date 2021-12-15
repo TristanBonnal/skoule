@@ -54,4 +54,124 @@ class AppUserController extends CoreController
             'users' => AppUser::findAll()
         ]);
     }
+
+    public function add()
+    {
+        $token = bin2hex(random_bytes(32));
+        $_SESSION['token'] = $token;
+
+        $this->show('appusers/add', [
+            'token' => $token
+        ]);
+    }
+
+    public function create()
+    {
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+        $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_SPECIAL_CHARS);
+        $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+
+        $errors = [];
+        if (empty($email)) {
+            $errors['email_empty'] = 'Veuillez renseignez un mail valide';
+        }
+        if (empty($name)) {
+            $errors['name_empty'] = 'Veuillez renseignez votre nom et prénom';
+        }
+        if (empty($password)) {
+            $errors['password_empty'] = 'Veuillez renseignez un mot de passe valide';
+        }
+        if ($role != 'admin' && $role != 'user') {
+            $errors['role_empty'] = 'Veuillez choisir un rôle, "admin" ou "utilisateur"';
+        }
+        if ($status != 1 && $status != 2) {
+            $errors['status_empty'] = 'Veuillez choisir un statut, "actif" ou "inactif"';
+        }
+
+        if (!empty($errors)) {
+            $this->show('appusers/add', [
+                //TODO 'token' => $token,
+                'errors' => $errors
+            ]);
+        } else {
+            $user = new AppUser();
+            $user->setEmail($email);
+            $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+            $user->setName($name);
+            $user->setRole($role);
+            $user->setStatus($status);
+
+
+            if ($user->save()) {
+                $this->redirect('users-list');
+            }
+        }
+    }
+
+    public function edit(int $id)
+    {
+        $token = bin2hex(random_bytes(32));
+        $_SESSION['token'] = $token;
+
+        $this->show('appusers/edit', [
+            'token' => $token,
+            'user' => AppUser::find($id)
+        ]);
+    }
+
+    public function update(int $id)
+    {
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
+        $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_SPECIAL_CHARS);
+        $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+
+        $errors = [];
+        if (empty($email)) {
+            $errors['email_empty'] = 'Veuillez renseignez un mail valide';
+        }
+        if (empty($name)) {
+            $errors['name_empty'] = 'Veuillez renseignez votre nom et prénom';
+        }
+        if (empty($password)) {
+            $errors['password_empty'] = 'Veuillez renseignez un mot de passe valide';
+        }
+        if ($role != 'admin' && $role != 'user') {
+            $errors['role_empty'] = 'Veuillez choisir un rôle, "admin" ou "utilisateur"';
+        }
+        if ($status != 1 && $status != 2) {
+            $errors['status_empty'] = 'Veuillez choisir un statut, "actif" ou "inactif"';
+        }
+
+        if (!empty($errors)) {
+            $this->show('appusers/add', [
+                //TODO 'token' => $token,
+                'errors' => $errors
+            ]);
+        } else {
+            $user = new AppUser();
+            $user->setId($id);
+            $user->setEmail($email);
+            $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+            $user->setName($name);
+            $user->setRole($role);
+            $user->setStatus($status);
+            if ($user->save()) {
+                $this->redirect('users-list');
+            }
+        }
+    }
+
+    public function delete($id)
+    {
+        $user = new AppUser;
+        $user->setId($id);
+        
+        if ($user->delete()) {
+            $this->redirect('users-list');
+        }
+    }
 }

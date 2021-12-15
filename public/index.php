@@ -183,6 +183,56 @@ $router->map(
     'users-list'
 );
 
+$router->map(
+    'GET',
+    '/users/add',
+    [
+        'method' => 'add',
+        'controller' => '\App\Controllers\AppUserController' 
+    ],
+    'users-add'
+);
+
+$router->map(
+    'POST',
+    '/users/add',
+    [
+        'method' => 'create',
+        'controller' => '\App\Controllers\AppUserController' 
+    ],
+    'users-add-post'
+);
+
+$router->map(
+    'GET',
+    '/users/edit/[i:id]',
+    [
+        'method' => 'edit',
+        'controller' => '\App\Controllers\AppUserController' 
+    ],
+    'users-edit'
+);
+
+$router->map(
+    'POST',
+    '/users/edit/[i:id]',
+    [
+        'method' => 'update',
+        'controller' => '\App\Controllers\AppUserController' 
+    ],
+    'users-edit-update'
+);
+
+$router->map(
+    'GET',
+    '/users/delete/[i:id]',
+    [
+        'method' => 'delete',
+        'controller' => '\App\Controllers\AppUserController' 
+    ],
+    'users-delete'
+);
+
 
 $match = $router->match();
 

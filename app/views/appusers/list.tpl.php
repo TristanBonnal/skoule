@@ -1,4 +1,4 @@
-<div class="container my-4"> <a href="add.html" class="btn btn-success float-right">Ajouter</a>
+<div class="container my-4"> <a href="<?= $router->generate('users-add') ?>" class="btn btn-success float-right">Ajouter</a>
 <h2>Liste des Utilisateurs</h2>
 <table class="table table-hover mt-4">
     <thead>
@@ -18,7 +18,7 @@
             <td><?= $user->getName() ?></td>
             <td><?= $user->getRole() ?></td>
             <td class="text-right">
-                <a href="edit.html" class="btn btn-sm btn-warning">
+                <a href="<?= $router->generate('users-edit', ['id' => $user->getId()]) ?>" class="btn btn-sm btn-warning">
                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 </a>
                 <div class="btn-group">
@@ -27,8 +27,8 @@
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/appusers/1/delete">Oui, je veux supprimer</a>
-                        <a class="dropdown-item" href="#" data-toggle="dropdown">Oups !</a>
+                        <a class="dropdown-item" href="<?= $router->generate('users-delete', ['id' => $user->getId()]) ?>">Oui, je veux supprimer</a>
+                        <a class="dropdown-item" href="" data-toggle="dropdown">Oups !</a>
                     </div>
                 </div>
             </td>
