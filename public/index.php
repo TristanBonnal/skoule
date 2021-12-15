@@ -240,7 +240,7 @@ $match = $router->match();
 $dispatcher = new Dispatcher($match, '\App\Controllers\ErrorController::err404');
 
 if ($match) {
-    $dispatcher->setControllersArguments($match['name']);    
+    $dispatcher->setControllersArguments($router);    
 }
 
 $dispatcher->dispatch();

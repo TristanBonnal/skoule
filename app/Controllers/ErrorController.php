@@ -5,6 +5,10 @@ namespace App\Controllers;
 // Classe gérant les erreurs (404, 403)
 class ErrorController extends CoreController
 {
+    public function __construct($router = null)
+    {
+        $this->router = $router;
+    }
 
     public function err403()
     {
