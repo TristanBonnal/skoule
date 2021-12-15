@@ -89,36 +89,34 @@ class Student extends CoreModel
     public function update()
     {
         $pdo = Database::getPDO();
-        //TODO
-        // $sql = "
-        //     UPDATE `student` 
+    
+        $sql = "
+            UPDATE `student` 
 
-        //     SET name = :name, 
-        //         subtitle = :subtitle, 
-        //         picture = :picture, 
-        //         home_order = :home_order,
-        //         updated_at = NOW()
+            SET firstname = :firstname, 
+            lastname = :lastname, 
+            status = :status,
+            teacher_id = :teacher_id,
+            updated_at = NOW()
 
-        //     WHERE id = :id
-        // ";
+            WHERE id = :id
+        ";
         
-        // $pdoStatement = $pdo->prepare($sql);
-        //TODO
-        // $pdoStatement->execute([
-        //     'name' => $this->name,
-        //     'subtitle' => $this->subtitle,
-        //     'picture' => $this->picture,
-        //     'home_order' => $this->home_order,
-        //     'id' => $this->id
-        // ]);
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->bindValue('id', $this->id, PDO::PARAM_INT);
+        $pdoStatement->bindValue('firstname', $this->firstname, PDO::PARAM_STR);
+        $pdoStatement->bindValue('lastname', $this->lastname, PDO::PARAM_STR);
+        $pdoStatement->bindValue('status', $this->status, PDO::PARAM_INT);
+        $pdoStatement->bindValue('teacher_id', $this->status, PDO::PARAM_INT);
+        $pdoStatement->execute();
 
-        // $updatedRows = $pdoStatement->rowCount();
 
-        // if ($updatedRows > 0) {
-        //     $this->id = $pdo->lastInsertId();
-        //     return true;
-        // }
-        // return false;
+        $updatedRows = $pdoStatement->rowCount();
+        if ($updatedRows > 0) {
+            $this->id = $pdo->lastInsertId();
+            return true;
+        }
+        return false;
     }
 
     public function delete()

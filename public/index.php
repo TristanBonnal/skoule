@@ -50,6 +50,25 @@ $router->map(
     'teachers-add-post'
 );
 
+$router->map(
+    'GET',
+    '/teachers/edit/[i:id]',
+    [
+        'method' => 'edit',
+        'controller' => '\App\Controllers\TeacherController' 
+    ],
+    'teachers-edit'
+);
+
+$router->map(
+    'POST',
+    '/teachers/edit/[i:id]',
+    [
+        'method' => 'update',
+        'controller' => '\App\Controllers\TeacherController' 
+    ],
+    'teachers-edit-post'
+);
 //Students routes
 $router->map(
     'GET',
@@ -79,6 +98,26 @@ $router->map(
         'controller' => '\App\Controllers\StudentController' 
     ],
     'students-add-post'
+);
+
+$router->map(
+    'GET',
+    '/students/edit/[i:id]',
+    [
+        'method' => 'edit',
+        'controller' => '\App\Controllers\StudentController' 
+    ],
+    'students-edit'
+);
+
+$router->map(
+    'POST',
+    '/students/edit/[i:id]',
+    [
+        'method' => 'update',
+        'controller' => '\App\Controllers\StudentController' 
+    ],
+    'students-edit-update'
 );
 
 

@@ -73,4 +73,57 @@ class StudentController extends CoreController
         }
 
     }
+
+    public function edit(int $id)
+    {
+        $token = bin2hex(random_bytes(32));
+        $_SESSION['token'] = $token;
+
+        $this->show('students/edit', [
+            'token' => $token,
+            'teachers' => Teacher::findAll(),
+            'student' => Student::find($id)
+        ]);
+    }
+
+    public function update(int $id)
+    {
+        $firstname = filter_input(INPUT_POST, 'firstname');
+        $lastname = filter_input(INPUT_POST, 'lastname');
+        $teacher_id = filter_input(INPUT_POST, 'teacher');
+        $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+
+        $errors = [];
+        if (empty($firstname)) {
+            $errors['firstname_empty'] = 'Veuillez renseignez votre prénom';
+        }
+        if (empty($lastname)) {
+            $errors['lastname_empty'] = 'Veuillez renseignez votre nom';
+        }
+        if (empty($teacher_id)) {
+            $errors['teacher_empty'] = 'Veuillez choisir un professeur votre nom';
+        }
+        if ($status != 1 && $status != 2) {
+            $errors['status_empty'] = 'Veuillez choisir un statut, "actif" ou "inactif"';
+        }
+
+        if (!empty($errors)) {
+            $this->show('students/edit', [
+                //TODO 'token' => $token,
+                'teachers' => Teacher::findAll(),
+                'errors' => $errors
+            ]);
+        } else {
+            $student = new Student();
+            $student->setId($id);
+            $student->setFirstname($firstname);
+            $student->setLastname($lastname);
+            $student->setTeacher_id($teacher_id);
+            $student->setStatus($status);
+    
+            if ($student->save()) {
+                $this->redirect('students-list');
+            }
+        }
+    }
 }

@@ -18,6 +18,21 @@ abstract class CoreModel
      */
     protected $updated_at;
 
+    abstract public function insert();
+    abstract public static function find($id);
+    abstract public static function findAll();
+    abstract public function update();
+    abstract public function delete();
+
+    public function save()
+    {
+        if ($this->getId() > 0) {
+            return $this->update();
+        } else {
+            return $this->insert();
+        }
+    }
+
 
     /**
      * Get the value of id
@@ -61,20 +76,5 @@ abstract class CoreModel
         $this->id = $id;
 
         return $this;
-    }
-
-    abstract public function insert();
-    abstract public static function find($id);
-    abstract public static function findAll();
-    abstract public function update();
-    abstract public function delete();
-
-    public function save()
-    {
-        if ($this->getId() > 0) {
-            return $this->update();
-        } else {
-            return $this->insert();
-        }
     }
 }

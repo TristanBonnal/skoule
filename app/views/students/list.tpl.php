@@ -16,7 +16,7 @@
                 <td><?= $student->getFirstName() ?></td>
                 <td><?= $student->getLastName() ?></td>
                 <td class="text-right">
-                    <a href="edit.html" class="btn btn-sm btn-warning">
+                    <a href="<?= $router->generate('students-edit', ['id' => $student->getId()]) ?>" class="btn btn-sm btn-warning">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </a>
                     <div class="btn-group">
@@ -26,7 +26,7 @@
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item"
-                                href="/students/1/delete">Oui, je veux
+                                href="<?= $router->generate('students-edit', ['id' => $student->getId()]) ?>">Oui, je veux
                                 supprimer</a>
                             <a class="dropdown-item" href="#" data-toggle="dropdown">Oups !</a>
                         </div>
