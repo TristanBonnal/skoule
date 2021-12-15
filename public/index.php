@@ -113,6 +113,16 @@ $router->map(
     'sign-in-post'
 );
 
+$router->map(
+    'GET',
+    '/users',
+    [
+        'method' => 'list',
+        'controller' => '\App\Controllers\AppUserController' 
+    ],
+    'users-list'
+);
+
 
 $match = $router->match();
 

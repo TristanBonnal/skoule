@@ -16,6 +16,7 @@ abstract class CoreController
             'students-list' => ['admin', 'user'],
             'students-add' => ['admin', 'user'],
             'students-add-post' => ['admin', 'user'], 
+            'users-list' => ['admin'], 
         ];
 
         if (array_key_exists($routeId, $accessControlList)) {

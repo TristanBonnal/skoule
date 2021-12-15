@@ -47,4 +47,11 @@ class AppUserController extends CoreController
         unset($_SESSION['userObject']);
         $this->redirect('main-home');
     }
+
+    public function list() 
+    {
+        $this->show('appusers/list', [
+            'users' => AppUser::findAll()
+        ]);
+    }
 }

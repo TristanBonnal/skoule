@@ -43,7 +43,7 @@
                         <a class="nav-link" href="<?= $router->generate('students-list') ?>">Etudiants</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./appuser/list.html">Utilisateurs</a>
+                        <a class="nav-link" href="<?= $router->generate('users-list') ?>">Utilisateurs</a>
                     </li>
                     <li class="nav-item">
                         <?php if (!isset($_SESSION['userId'])): ?>
