@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 abstract class CoreController
 {
-    protected $router;
 
     public function __construct($routeId = '')
     {   

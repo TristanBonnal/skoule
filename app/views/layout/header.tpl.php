@@ -40,7 +40,7 @@
                         <a class="nav-link" href="<?= $router->generate('teachers-list') ?>">Profs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./student/list.html">Etudiants</a>
+                        <a class="nav-link" href="<?= $router->generate('students-list') ?>">Etudiants</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./appuser/list.html">Utilisateurs</a>

@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Utils\Database;
 use PDO;
 
-class Teacher extends CoreModel
+class Student extends CoreModel
 {
 
     /**
@@ -17,42 +17,38 @@ class Teacher extends CoreModel
      */
     private $lastname;
     /**
-     * @var string
-     */
-    private $job;
-    /**
      * @var int
      */
     private $status;
 
     /**
-     * Méthode permettant de récupérer un enregistrement de la table Teacher en fonction d'un id donné
+     * Méthode permettant de récupérer un enregistrement de la table Student en fonction d'un id donné
      *
-     * @param int $teacherId ID de la catégorie
-     * @return Teacher
+     * @param int $studentId ID de la catégorie
+     * @return Student
      */
-    public static function find($teacherId)
+    public static function find($studentId)
     {
         $pdo = Database::getPDO();
 
-        $sql = 'SELECT * FROM `teacher` WHERE `id` =' . $teacherId;
+        $sql = 'SELECT * FROM `student` WHERE `id` =' . $studentId;
 
         $pdoStatement = $pdo->query($sql);
 
-        $teacher = $pdoStatement->fetchObject(self::class);
+        $student = $pdoStatement->fetchObject(self::class);
 
-        return $teacher;
+        return $student;
     }
 
     /**
-     * Méthode permettant de récupérer tous les enregistrements de la table teacher
+     * Méthode permettant de récupérer tous les enregistrements de la table student
      *
-     * @return Teacher[]
+     * @return Student[]
      */
     public static function findAll()
     {
         $pdo = Database::getPDO();
-        $sql = 'SELECT * FROM `teacher`';
+        $sql = 'SELECT * FROM `student`';
         $pdoStatement = $pdo->query($sql);
         $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
 
@@ -66,7 +62,7 @@ class Teacher extends CoreModel
         $pdo = Database::getPDO();
         //TODO
         // $sql = "
-        //     INSERT INTO `teacher` (name, subtitle, picture, home_order)
+        //     INSERT INTO `student` (name, subtitle, picture, home_order)
         //     VALUES (:name, :subtitle, :picture,:home_order)
         // ";
         //TODO
@@ -91,7 +87,7 @@ class Teacher extends CoreModel
         $pdo = Database::getPDO();
         //TODO
         // $sql = "
-        //     UPDATE `teacher` 
+        //     UPDATE `student` 
 
         //     SET name = :name, 
         //         subtitle = :subtitle, 
@@ -126,7 +122,7 @@ class Teacher extends CoreModel
         $pdo = Database::getPDO();
 
         $sql = "
-            DELETE FROM teacher WHERE id = :id LIMIT 1
+            DELETE FROM student WHERE id = :id LIMIT 1
         ";
         $pdoStatement = $pdo->prepare($sql);
 
@@ -193,30 +189,6 @@ class Teacher extends CoreModel
     }
 
     /**
-     * Get the value of job
-     *
-     * @return  string
-     */ 
-    public function getJob()
-    {
-        return $this->job;
-    }
-
-    /**
-     * Set the value of job
-     *
-     * @param  string  $job
-     *
-     * @return  self
-     */ 
-    public function setJob(string $job)
-    {
-        $this->job = $job;
-
-        return $this;
-    }
-
-    /**
      * Get the value of status
      *
      * @return  int
@@ -233,7 +205,7 @@ class Teacher extends CoreModel
      *
      * @return  self
      */ 
-    public function setStatus(int $status)
+    public function setStatus(string $status)
     {
         $this->status = $status;
 

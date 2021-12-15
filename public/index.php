@@ -30,6 +30,18 @@ $router->map(
 );
 
 
+
+$router->map(
+    'GET',
+    '/students',
+    [
+        'method' => 'list',
+        'controller' => '\App\Controllers\StudentController' 
+    ],
+    'students-list'
+);
+
+
 $match = $router->match();
 
 // dd($match);
