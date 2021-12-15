@@ -19,6 +19,16 @@ $router->map(
     'main-home'
 );
 
+$router->map(
+    'GET',
+    '/teachers',
+    [
+        'method' => 'list',
+        'controller' => '\App\Controllers\TeacherController' 
+    ],
+    'teachers-list'
+);
+
 
 $match = $router->match();
 

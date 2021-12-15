@@ -11,15 +11,15 @@ class Teacher extends CoreModel
     /**
      * @var string
      */
-    private $name;
-    /**
-     * @var string
-     */
     private $firstname;
     /**
      * @var string
      */
     private $lastname;
+    /**
+     * @var string
+     */
+    private $job;
     /**
      * @var int
      */
@@ -75,15 +75,15 @@ class Teacher extends CoreModel
         // $pdoStatement->bindValue('subtitle', $this->subtitle, PDO::PARAM_STR);
         // $pdoStatement->bindValue('home_order', $this->home_order, PDO::PARAM_INT);
         // $pdoStatement->bindValue('picture', $this->picutre, PDO::PARAM_STR);
-        $pdoStatement->execute();
+        // $pdoStatement->execute();
 
-        $insertedRows = $pdoStatement->rowCount();
+        // $insertedRows = $pdoStatement->rowCount();
 
-        if ($insertedRows > 0) {
-            $this->id = $pdo->lastInsertId();
-            return true;
-        }
-        return false;
+        // if ($insertedRows > 0) {
+        //     $this->id = $pdo->lastInsertId();
+        //     return true;
+        // }
+        // return false;
     }
 
     public function update()
@@ -102,7 +102,7 @@ class Teacher extends CoreModel
         //     WHERE id = :id
         // ";
         
-        $pdoStatement = $pdo->prepare($sql);
+        // $pdoStatement = $pdo->prepare($sql);
         //TODO
         // $pdoStatement->execute([
         //     'name' => $this->name,
@@ -112,13 +112,13 @@ class Teacher extends CoreModel
         //     'id' => $this->id
         // ]);
 
-        $updatedRows = $pdoStatement->rowCount();
+        // $updatedRows = $pdoStatement->rowCount();
 
-        if ($updatedRows > 0) {
-            $this->id = $pdo->lastInsertId();
-            return true;
-        }
-        return false;
+        // if ($updatedRows > 0) {
+        //     $this->id = $pdo->lastInsertId();
+        //     return true;
+        // }
+        // return false;
     }
 
     public function delete()
@@ -142,5 +142,77 @@ class Teacher extends CoreModel
             return true;
         }
         return false;
+    }
+
+    /**
+     * Get the value of firstname
+     *
+     * @return  string
+     */ 
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set the value of firstname
+     *
+     * @param  string  $firstname
+     *
+     * @return  self
+     */ 
+    public function setFirstname(string $firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of lastname
+     *
+     * @return  string
+     */ 
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set the value of lastname
+     *
+     * @param  string  $lastname
+     *
+     * @return  self
+     */ 
+    public function setLastname(string $lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of job
+     *
+     * @return  string
+     */ 
+    public function getJob()
+    {
+        return $this->job;
+    }
+
+    /**
+     * Set the value of job
+     *
+     * @param  string  $job
+     *
+     * @return  self
+     */ 
+    public function setJob(string $job)
+    {
+        $this->job = $job;
+
+        return $this;
     }
 }
