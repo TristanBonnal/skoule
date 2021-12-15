@@ -8,9 +8,14 @@ abstract class CoreController
     public function __construct($routeId = '')
     {   
 
-
         $accessControlList = [
-            //TODO 
+            'main-home' => ['admin', 'user'],
+            'teachers-list' => ['admin', 'user'],
+            'teachers-add' => ['admin'],
+            'teachers-add' => ['admin'],
+            'students-list' => ['admin', 'user'],
+            'students-add' => ['admin', 'user'],
+            'students-add-post' => ['admin', 'user'], 
         ];
 
         if (array_key_exists($routeId, $accessControlList)) {
@@ -104,12 +109,11 @@ abstract class CoreController
             if (in_array($role, $authorizedRoles)) {
                 return true;
             } else {
-                // TODO $errorController = new ErrorController();
-                // $errorController->err403();
-                exit('erreur auth');
+                $errorController = new ErrorController();
+                $errorController->err403();
             }
         } else {
-            $this->redirect('login');
+            $this->redirect('sign-in');
         }
     }
 }

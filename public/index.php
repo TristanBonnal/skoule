@@ -116,7 +116,6 @@ $router->map(
 
 $match = $router->match();
 
-// dd($match);
 
 $dispatcher = new Dispatcher($match, '\App\Controllers\ErrorController::err404');
 
@@ -125,3 +124,4 @@ if ($match) {
 }
 
 $dispatcher->dispatch();
+
