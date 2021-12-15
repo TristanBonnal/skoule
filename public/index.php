@@ -19,6 +19,7 @@ $router->map(
     'main-home'
 );
 
+// Teachers routes
 $router->map(
     'GET',
     '/teachers',
@@ -49,7 +50,7 @@ $router->map(
     'teachers-add-post'
 );
 
-
+//Students routes
 $router->map(
     'GET',
     '/students',
@@ -60,6 +61,25 @@ $router->map(
     'students-list'
 );
 
+$router->map(
+    'GET',
+    '/students/add',
+    [
+        'method' => 'add',
+        'controller' => '\App\Controllers\StudentController' 
+    ],
+    'students-add'
+);
+
+$router->map(
+    'POST',
+    '/students/add',
+    [
+        'method' => 'create',
+        'controller' => '\App\Controllers\StudentController' 
+    ],
+    'students-add-post'
+);
 
 $match = $router->match();
 

@@ -20,6 +20,10 @@ class Student extends CoreModel
      * @var int
      */
     private $status;
+    /**
+     * @var int
+     */
+    private $teacher_id;
 
     /**
      * Méthode permettant de récupérer un enregistrement de la table Student en fonction d'un id donné
@@ -60,26 +64,26 @@ class Student extends CoreModel
     public function insert()
     {
         $pdo = Database::getPDO();
-        //TODO
-        // $sql = "
-        //     INSERT INTO `student` (name, subtitle, picture, home_order)
-        //     VALUES (:name, :subtitle, :picture,:home_order)
-        // ";
-        //TODO
-        // $pdoStatement = $pdo->prepare($sql);
-        // $pdoStatement->bindValue('name', $this->name, PDO::PARAM_STR);
-        // $pdoStatement->bindValue('subtitle', $this->subtitle, PDO::PARAM_STR);
-        // $pdoStatement->bindValue('home_order', $this->home_order, PDO::PARAM_INT);
-        // $pdoStatement->bindValue('picture', $this->picutre, PDO::PARAM_STR);
-        // $pdoStatement->execute();
+        
+        $sql = "
+            INSERT INTO `student` (firstname, lastname, status, teacher_id)
+            VALUES (:firstname, :lastname,:status, :teacher_id)
+        ";
 
-        // $insertedRows = $pdoStatement->rowCount();
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->bindValue('firstname', $this->firstname, PDO::PARAM_STR);
+        $pdoStatement->bindValue('lastname', $this->lastname, PDO::PARAM_STR);
+        $pdoStatement->bindValue('status', $this->status, PDO::PARAM_INT);
+        $pdoStatement->bindValue('teacher_id', $this->status, PDO::PARAM_INT);
+        $pdoStatement->execute();
 
-        // if ($insertedRows > 0) {
-        //     $this->id = $pdo->lastInsertId();
-        //     return true;
-        // }
-        // return false;
+        $insertedRows = $pdoStatement->rowCount();
+
+        if ($insertedRows > 0) {
+            $this->id = $pdo->lastInsertId();
+            return true;
+        }
+        return false;
     }
 
     public function update()
@@ -208,6 +212,30 @@ class Student extends CoreModel
     public function setStatus(string $status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of teacher_id
+     *
+     * @return  int
+     */ 
+    public function getTeacher_id()
+    {
+        return $this->teacher_id;
+    }
+
+    /**
+     * Set the value of teacher_id
+     *
+     * @param  int  $teacher_id
+     *
+     * @return  self
+     */ 
+    public function setTeacher_id(int $teacher_id)
+    {
+        $this->teacher_id = $teacher_id;
 
         return $this;
     }
