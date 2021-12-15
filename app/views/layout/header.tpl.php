@@ -18,7 +18,7 @@
         integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
     <!-- We can still have our own CSS file -->
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="<?= $assetsBaseUri ?>css/style.css">
 </head>
 
 <body>
@@ -46,9 +46,14 @@
                         <a class="nav-link" href="./appuser/list.html">Utilisateurs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Se déconnecter</a>
+                        <?php if (!isset($_SESSION['userId'])): ?>
+                            <a class="nav-link" href="<?= $router->generate('sign-in') ?>">Connexion</a>
+                        <?php else :?>
+                            <a class="nav-link" href="<?= $router->generate('logout') ?>">Déconnexion</a>
+                        <?php endif ?>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <?= $login ?>

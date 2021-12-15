@@ -81,6 +81,39 @@ $router->map(
     'students-add-post'
 );
 
+
+//App users routes
+$router->map(
+    'GET',
+    '/signin',
+    [
+        'method' => 'signin',
+        'controller' => '\App\Controllers\AppUserController' 
+    ],
+    'sign-in'
+);
+
+$router->map(
+    'GET',
+    '/logout',
+    [
+        'method' => 'logout',
+        'controller' => '\App\Controllers\AppUserController' 
+    ],
+    'logout'
+);
+
+$router->map(
+    'POST',
+    '/signin',
+    [
+        'method' => 'authentification',
+        'controller' => '\App\Controllers\AppUserController' 
+    ],
+    'sign-in-post'
+);
+
+
 $match = $router->match();
 
 // dd($match);

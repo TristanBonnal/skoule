@@ -68,7 +68,9 @@ abstract class CoreController
         $viewData['baseUri'] = $_SERVER['BASE_URI'];
 
 
-        $viewData['login'] = isset($_SESSION['userObject']) ? 'Connecté en tant que ' . $_SESSION['userObject']->getFirstName() : '';
+        $viewData['login'] = isset($_SESSION['userObject']) ? 
+        '<div class="alert alert-success">Connecté en tant que ' . $_SESSION['userObject']->getName() . '</div>' 
+        : '';
 
         extract($viewData);
 
