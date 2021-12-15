@@ -36,14 +36,33 @@ class TeacherController extends CoreController
         $job = filter_input(INPUT_POST, 'job');
         $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
 
-        $teacher = new Teacher();
-        $teacher->setFirstname($firstname);
-        $teacher->setLastname($lastname);
-        $teacher->setJob($job);
-        $teacher->setStatus($status);
+        $errors = [];
+        if (empty($firstname)) {
+            $errors['firstname_empty'] = 'Veuillez renseignez votre prénom';
+        }
+        if (empty($lastname)) {
+            $errors['lastname_empty'] = 'Veuillez renseignez votre nom';
+        }
+        if ($status != 1 && $status != 2) {
+            $errors['firstname_empty'] = 'Veuillez choisir un statut, "actif" ou "inactif"';
+        }
 
-        if ($teacher->save()) {
-            $this->redirect('teachers-list');
+        if (!empty($errors)) {
+            $this->show('teachers/add', [
+                //TODO 'token' => $token,
+                'teachers' => Teacher::findAll(),
+                'errors' => $errors
+            ]);
+        } else {
+            $teacher = new Teacher();
+            $teacher->setFirstname($firstname);
+            $teacher->setLastname($lastname);
+            $teacher->setJob($job);
+            $teacher->setStatus($status);
+
+            if ($teacher->save()) {
+                $this->redirect('teachers-list');
+            }
         }
     }
 }
