@@ -26,7 +26,7 @@
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item"
-                                href="<?= $router->generate('students-edit', ['id' => $student->getId()]) ?>">Oui, je veux
+                                href="<?= $router->generate('students-delete', ['id' => $student->getId()]) ?>">Oui, je veux
                                 supprimer</a>
                             <a class="dropdown-item" href="#" data-toggle="dropdown">Oups !</a>
                         </div>

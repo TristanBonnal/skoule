@@ -126,4 +126,14 @@ class StudentController extends CoreController
             }
         }
     }
+
+    public function delete($id)
+    {
+        $student = new Student;
+        $student->setId($id);
+        
+        if ($student->delete()) {
+            $this->redirect('students-list');
+        }
+    }
 }

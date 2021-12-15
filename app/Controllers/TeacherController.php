@@ -114,5 +114,15 @@ class TeacherController extends CoreController
             }
         }
     }
+
+    public function delete($id)
+    {
+        $teacher = new Teacher;
+        $teacher->setId($id);
+        
+        if ($teacher->delete()) {
+            $this->redirect('teachers-list');
+        }
+    }
     
 }

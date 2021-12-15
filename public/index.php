@@ -61,14 +61,25 @@ $router->map(
 );
 
 $router->map(
-    'POST',
+    'GET',
     '/teachers/edit/[i:id]',
     [
-        'method' => 'update',
+        'method' => 'delete',
         'controller' => '\App\Controllers\TeacherController' 
     ],
     'teachers-edit-post'
 );
+
+$router->map(
+    'GET',
+    '/teachers/delete/[i:id]',
+    [
+        'method' => 'delete',
+        'controller' => '\App\Controllers\TeacherController' 
+    ],
+    'teachers-delete'
+);
+
 //Students routes
 $router->map(
     'GET',
@@ -118,6 +129,16 @@ $router->map(
         'controller' => '\App\Controllers\StudentController' 
     ],
     'students-edit-update'
+);
+
+$router->map(
+    'GET',
+    '/students/delete/[i:id]',
+    [
+        'method' => 'delete',
+        'controller' => '\App\Controllers\StudentController' 
+    ],
+    'students-delete'
 );
 
 
