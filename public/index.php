@@ -29,6 +29,25 @@ $router->map(
     'teachers-list'
 );
 
+$router->map(
+    'GET',
+    '/teachers/add',
+    [
+        'method' => 'add',
+        'controller' => '\App\Controllers\TeacherController' 
+    ],
+    'teachers-add'
+);
+
+$router->map(
+    'POST',
+    '/teachers/add',
+    [
+        'method' => 'create',
+        'controller' => '\App\Controllers\TeacherController' 
+    ],
+    'teachers-add-post'
+);
 
 
 $router->map(

@@ -64,26 +64,26 @@ class Teacher extends CoreModel
     public function insert()
     {
         $pdo = Database::getPDO();
-        //TODO
-        // $sql = "
-        //     INSERT INTO `teacher` (name, subtitle, picture, home_order)
-        //     VALUES (:name, :subtitle, :picture,:home_order)
-        // ";
-        //TODO
-        // $pdoStatement = $pdo->prepare($sql);
-        // $pdoStatement->bindValue('name', $this->name, PDO::PARAM_STR);
-        // $pdoStatement->bindValue('subtitle', $this->subtitle, PDO::PARAM_STR);
-        // $pdoStatement->bindValue('home_order', $this->home_order, PDO::PARAM_INT);
-        // $pdoStatement->bindValue('picture', $this->picutre, PDO::PARAM_STR);
-        // $pdoStatement->execute();
+        
+        $sql = "
+            INSERT INTO `teacher` (firstname, lastname, job, status)
+            VALUES (:firstname, :lastname, :job,:status)
+        ";
 
-        // $insertedRows = $pdoStatement->rowCount();
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->bindValue('firstname', $this->firstname, PDO::PARAM_STR);
+        $pdoStatement->bindValue('lastname', $this->lastname, PDO::PARAM_STR);
+        $pdoStatement->bindValue('job', $this->job, PDO::PARAM_STR);
+        $pdoStatement->bindValue('status', $this->status, PDO::PARAM_INT);
+        $pdoStatement->execute();
 
-        // if ($insertedRows > 0) {
-        //     $this->id = $pdo->lastInsertId();
-        //     return true;
-        // }
-        // return false;
+        $insertedRows = $pdoStatement->rowCount();
+
+        if ($insertedRows > 0) {
+            $this->id = $pdo->lastInsertId();
+            return true;
+        }
+        return false;
     }
 
     public function update()
