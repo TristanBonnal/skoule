@@ -7,7 +7,6 @@ use App\Models\AppUser;
 class AppUserController extends CoreController
 {
     /**
-     * Méthode s'occupant de la page d'accueil
      *
      * @return void
      */
