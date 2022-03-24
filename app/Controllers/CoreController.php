@@ -4,9 +4,13 @@ namespace App\Controllers;
 
 abstract class CoreController
 {
+    protected  $router;
 
-    public function __construct($routeId = '')
-    {   
+    public function __construct($router = null)
+    {  
+        $this->router = $router;
+
+        $routeId = $router ? $router->match()['name'] : '';
 
         $accessControlList = [
             'main-home' => ['admin', 'user'],
@@ -33,11 +37,11 @@ abstract class CoreController
         if (array_key_exists($routeId, $accessControlList)) {
             $authorizedRoles = $accessControlList[$routeId];
             $this->checkAuthorization($authorizedRoles);
-            CoreController::checkCsrfToken($routeId);
+            $this->checkCsrfToken($routeId);
         }
     }
 
-    public static function checkCsrfToken($routeId)
+    public function checkCsrfToken($routeId)
     {
         $csrfTokenToCheckInPost = [
             'teachers-edit-post',
@@ -65,7 +69,7 @@ abstract class CoreController
             if (empty($formToken) && empty($urlToken) || empty($sessionToken) || $formToken !== $sessionToken && $urlToken !== $sessionToken) {
                 // dump($formToken);
                 // dd($sessionToken);
-                $errorController = new ErrorController();
+                $errorController = new ErrorController($this->router);
                 $errorController->err403();
             } else {
                 unset($_SESSION['token']);
@@ -85,7 +89,7 @@ abstract class CoreController
     protected function show(string $viewName, $viewData = [])
     {
 
-        global $router;
+        $router = $this->router;
 
         $viewData['currentPage'] = $viewName;
         $viewData['assetsBaseUri'] = $_SERVER['BASE_URI'] . 'assets/';
@@ -105,7 +109,7 @@ abstract class CoreController
 
     protected function redirect(string $routeId, array $routeParam = [])
     {
-        global $router;
+        $router = $this->router;
         header('Location: ' . $router->generate($routeId, $routeParam));
         exit;
     }
@@ -128,7 +132,7 @@ abstract class CoreController
             if (in_array($role, $authorizedRoles)) {
                 return true;
             } else {
-                $errorController = new ErrorController();
+                $errorController = new ErrorController($this->router);
                 $errorController->err403();
             }
         } else {
