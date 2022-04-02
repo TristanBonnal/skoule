@@ -2,7 +2,7 @@
 
 ## The website :computer:
 
-This website was an exercise I had to do during my formation, the purpose was to practice handmade CRUD, router, authentication, authorizations, ACL and CSRF tokens with PHP. Every page require an authentication, and there are different roles levels.
+This website was an exercise I had to do during my formation, the purpose was to practice handmade CRUD, router, authentication, authorizations, ACL and CSRF tokens with PHP. Every page require an authentication, and there are different roles levels. Skoule purpose is to see students and teachers lists.
 
 
 ![image info](./skouleSC.png)
